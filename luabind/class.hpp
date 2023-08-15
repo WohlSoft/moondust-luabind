@@ -219,7 +219,7 @@ namespace luabind {
 
 		private:
 			template<class U> void operator,(U const&) const;
-			void operator=(static_scope const&);
+			static_scope &operator=(static_scope const&) = default;
 
 			T& self;
 		};
@@ -416,6 +416,8 @@ namespace luabind {
 			init();
 		}
 
+		class_(const class_&) = default;
+
 		// virtual functions
 		template<class F, typename... Injectors>
 		class_& def(char const* name, F fn, policy_list< Injectors... > policies = no_policies())
@@ -540,7 +542,7 @@ namespace luabind {
 			gen_base_info(BaseList());
 		}
 
-		void operator=(class_ const&);
+		class_ &operator=(class_ const&) = default;
 
 		void add_wrapper_cast(detail::null_type*)
 		{}
@@ -597,4 +599,3 @@ namespace luabind {
 #endif
 
 #endif // LUABIND_CLASS_HPP_INCLUDED
-
